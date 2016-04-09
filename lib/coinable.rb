@@ -243,8 +243,14 @@ module Coinable
   end
 
   # listaccounts
-  def list_accounts
-    raise NotImplementedError
+  def list_accounts(minconf = nil)
+    payload = {
+      method: 'listaccounts'
+    }
+
+    payload[:params] = [minconf] unless minconf.nil?
+
+    request(payload)
   end
 
   # listaddressgroupings

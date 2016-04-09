@@ -308,8 +308,18 @@ describe Coinable do
   end
 
   describe '.list_accounts' do
-    it 'raises error' do
-      expect { subject.list_accounts }.to raise_error(NotImplementedError)
+    context 'minconf not provided' do
+      it 'makes request' do
+        expect(subject).to receive(:request).with(method: 'listaccounts')
+        subject.list_accounts
+      end
+    end
+
+    context 'minconf provided' do
+      it 'makes request' do
+        expect(subject).to receive(:request).with(method: 'listaccounts', params: [6])
+        subject.list_accounts(6)
+      end
     end
   end
 
