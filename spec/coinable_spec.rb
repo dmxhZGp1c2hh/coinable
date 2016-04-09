@@ -3,6 +3,57 @@ require 'spec_helper'
 describe Coinable do
   subject { Class.new { extend Coinable } }
 
+  describe 'configuration' do
+    context 'not configured' do
+      it 'returns default values' do
+        expect(subject.host).to eq('localhost')
+        expect(subject.port).to eq(8543)
+        expect(subject.user).to eq('rpcuser')
+        expect(subject.password).to eq('rpcpassword')
+      end
+    end
+
+    context 'using attribute writer' do
+      let(:host) { '123.45.678.9' }
+      let(:port) { 1337 }
+      let(:user) { 'john' }
+      let(:password) { 'swordfish' }
+
+      it 'returns set values' do
+        subject.host = host
+        subject.port = port
+        subject.user = user
+        subject.password = password
+
+        expect(subject.host).to eq(host)
+        expect(subject.port).to eq(port)
+        expect(subject.user).to eq(user)
+        expect(subject.password).to eq(password)
+      end
+    end
+
+    context 'using .configure' do
+      let(:host) { '987.65.432.1' }
+      let(:port) { 7331 }
+      let(:user) { 'jimmy' }
+      let(:password) { 'qwerty' }
+
+      it 'returns set values' do
+        subject.configure do |config|
+          config.host = host
+          config.port = port
+          config.user = user
+          config.password = password
+        end
+
+        expect(subject.host).to eq(host)
+        expect(subject.port).to eq(port)
+        expect(subject.user).to eq(user)
+        expect(subject.password).to eq(password)
+      end
+    end
+  end
+
   describe '.add_multisig_address' do
     it 'raises error' do
       expect { subject.add_multisig_address }.to raise_error(NotImplementedError)

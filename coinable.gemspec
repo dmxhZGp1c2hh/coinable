@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.author        = 'Vlad D'
   spec.email         = 'dmxhZGp1c2hh@yandex.ru'
 
-  spec.summary       = 'Communicate with Bitcoin, Litecoin, Emercoin and other Altcoin JSON the Ruby way'
+  spec.summary       = 'Communicate with Bitcoin, Litecoin, Emercoin and other Altcoin JSON RPC the Ruby way'
   spec.homepage      = 'https://github.com/dmxhZGp1c2hh/coinable'
   spec.license       = 'MIT'
 

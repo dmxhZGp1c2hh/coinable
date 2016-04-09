@@ -1,6 +1,28 @@
 require 'coinable/version'
 
 module Coinable
+  attr_writer :host, :port, :user, :password
+
+  def host
+    @host || 'localhost'
+  end
+
+  def port
+    @port || 8543
+  end
+
+  def user
+    @user || 'rpcuser'
+  end
+
+  def password
+    @password || 'rpcpassword'
+  end
+
+  def configure
+    yield self
+  end
+
   # addmultisigaddress
   def add_multisig_address
     raise NotImplementedError
