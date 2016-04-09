@@ -211,8 +211,11 @@ describe Coinable do
   end
 
   describe '.new_address' do
-    it 'raises error' do
-      expect { subject.new_address }.to raise_error(NotImplementedError)
+    let(:address) { '13Em9gs2knEtUMtZUSzV4XrNwBeViZXvQk' }
+
+    it 'returns new address' do
+      expect(subject).to receive(:request).with(method: 'getnewaddress').and_return(address)
+      expect(subject.new_address).to eq(address)
     end
   end
 

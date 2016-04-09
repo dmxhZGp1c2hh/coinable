@@ -1,6 +1,14 @@
+require 'json'
+require 'httparty'
 require 'coinable/version'
+require 'coinable/error'
 
 module Coinable
+  HEADERS = {
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json'
+  }.freeze
+
   attr_writer :host, :port, :user, :password
 
   def host
@@ -155,7 +163,11 @@ module Coinable
 
   # getnewaddress
   def new_address
-    raise NotImplementedError
+    payload = {
+      method: 'getnewaddress'
+    }
+
+    request(payload)
   end
 
   # getpeerinfo
@@ -351,5 +363,19 @@ module Coinable
   # walletpassphrasechange
   def wallet_passphrase_change
     raise NotImplementedError
+  end
+
+  private
+
+  def request(payload)
+    response = HTTParty.post(url, body: payload.to_json, headers: HEADERS)
+
+    raise Error, response.message unless response.code == 200
+
+    JSON.parse(response.body)['result']
+  end
+
+  def url
+    "http://#{user}:#{password}@#{host}:#{port}"
   end
 end
