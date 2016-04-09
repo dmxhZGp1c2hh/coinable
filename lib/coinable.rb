@@ -261,8 +261,16 @@ module Coinable
   end
 
   # listtransactions
-  def list_transactions
-    raise NotImplementedError
+  def list_transactions(account = nil, count = 10, from = 0)
+    payload = {
+      method: 'listtransactions'
+    }
+
+    unless account.nil?
+      payload[:params] = [account, count, from]
+    end
+
+    request(payload)
   end
 
   # listunspent

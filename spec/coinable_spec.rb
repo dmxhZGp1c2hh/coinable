@@ -211,11 +211,9 @@ describe Coinable do
   end
 
   describe '.new_address' do
-    let(:address) { '13Em9gs2knEtUMtZUSzV4XrNwBeViZXvQk' }
-
-    it 'returns new address' do
-      expect(subject).to receive(:request).with(method: 'getnewaddress').and_return(address)
-      expect(subject.new_address).to eq(address)
+    it 'makes request' do
+      expect(subject).to receive(:request).with(method: 'getnewaddress')
+      subject.new_address
     end
   end
 
@@ -328,8 +326,25 @@ describe Coinable do
   end
 
   describe '.list_transactions' do
-    it 'raises error' do
-      expect { subject.list_transactions }.to raise_error(NotImplementedError)
+    context 'account not provided' do
+      it 'makes request' do
+        expect(subject).to receive(:request).with({ method: 'listtransactions' })
+        subject.list_transactions
+      end
+    end
+
+    context 'account provided' do
+      it 'makes request' do
+        expect(subject).to receive(:request).with({ method: 'listtransactions', params: ['first', 10, 0] })
+        subject.list_transactions('first')
+      end
+    end
+
+    context 'all params provided' do
+      it 'makes request' do
+        expect(subject).to receive(:request).with({ method: 'listtransactions', params: ['second', 1000, 500] })
+        subject.list_transactions('second', 1000, 500)
+      end
     end
   end
 
