@@ -203,8 +203,13 @@ module Coinable
   end
 
   # gettransaction
-  def transaction
-    raise NotImplementedError
+  def transaction(txid)
+    payload = {
+      method: 'gettransaction',
+      params: [txid]
+    }
+
+    request(payload)
   end
 
   # gettxout

@@ -263,8 +263,11 @@ describe Coinable do
   end
 
   describe '.transaction' do
-    it 'raises error' do
-      expect { subject.transaction }.to raise_error(NotImplementedError)
+    let(:txid) { 'eb718a2ce7fcf1c2158663577ad3f8ae9728d8e42eb51e6bcdc8bf02de57aeee' }
+
+    it 'makes request' do
+      expect(subject).to receive(:request).with({ method: 'gettransaction', params: [txid] })
+      subject.transaction(txid)
     end
   end
 
