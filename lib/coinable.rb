@@ -162,10 +162,12 @@ module Coinable
   end
 
   # getnewaddress
-  def new_address
+  def new_address(account = nil)
     payload = {
       method: 'getnewaddress'
     }
+
+    payload[:params] = [account] unless account.nil?
 
     request(payload)
   end
@@ -266,9 +268,7 @@ module Coinable
       method: 'listtransactions'
     }
 
-    unless account.nil?
-      payload[:params] = [account, count, from]
-    end
+    payload[:params] = [account, count, from] unless account.nil?
 
     request(payload)
   end

@@ -211,9 +211,18 @@ describe Coinable do
   end
 
   describe '.new_address' do
-    it 'makes request' do
-      expect(subject).to receive(:request).with(method: 'getnewaddress')
-      subject.new_address
+    context 'account not provided' do
+      it 'makes request' do
+        expect(subject).to receive(:request).with(method: 'getnewaddress')
+        subject.new_address
+      end
+    end
+
+    context 'account provided' do
+      it 'makes request' do
+        expect(subject).to receive(:request).with(method: 'getnewaddress', params: ['john'])
+        subject.new_address('john')
+      end
     end
   end
 
