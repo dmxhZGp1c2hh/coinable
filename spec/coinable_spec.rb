@@ -467,8 +467,11 @@ describe Coinable do
   end
 
   describe '.validate_address' do
-    it 'raises error' do
-      expect { subject.validate_address }.to raise_error(NotImplementedError)
+    let(:address) { '1LQvcJ58qmT7SsSeFmNpwkEiuCUsnrbUk7' }
+
+    it 'makes request' do
+      expect(subject).to receive(:request).with(method: 'validateaddress', params: [address])
+      subject.validate_address(address)
     end
   end
 

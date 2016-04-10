@@ -372,8 +372,13 @@ module Coinable
   end
 
   # validateaddress
-  def validate_address
-    raise NotImplementedError
+  def validate_address(address)
+    payload = {
+      method: 'validateaddress',
+      params: [address]
+    }
+
+    request(payload)
   end
 
   # verifymessage
