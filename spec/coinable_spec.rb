@@ -266,7 +266,7 @@ describe Coinable do
     let(:txid) { 'eb718a2ce7fcf1c2158663577ad3f8ae9728d8e42eb51e6bcdc8bf02de57aeee' }
 
     it 'makes request' do
-      expect(subject).to receive(:request).with({ method: 'gettransaction', params: [txid] })
+      expect(subject).to receive(:request).with(method: 'gettransaction', params: [txid])
       subject.transaction(txid)
     end
   end
@@ -350,21 +350,21 @@ describe Coinable do
   describe '.list_transactions' do
     context 'account not provided' do
       it 'makes request' do
-        expect(subject).to receive(:request).with({ method: 'listtransactions' })
+        expect(subject).to receive(:request).with(method: 'listtransactions')
         subject.list_transactions
       end
     end
 
     context 'account provided' do
       it 'makes request' do
-        expect(subject).to receive(:request).with({ method: 'listtransactions', params: ['first', 10, 0] })
+        expect(subject).to receive(:request).with(method: 'listtransactions', params: ['first'])
         subject.list_transactions('first')
       end
     end
 
     context 'all params provided' do
       it 'makes request' do
-        expect(subject).to receive(:request).with({ method: 'listtransactions', params: ['second', 1000, 500] })
+        expect(subject).to receive(:request).with(method: 'listtransactions', params: ['second', 1000, 500])
         subject.list_transactions('second', 1000, 500)
       end
     end
@@ -413,8 +413,14 @@ describe Coinable do
   end
 
   describe '.send_to_address' do
-    it 'raises error' do
-      expect { subject.send_to_address }.to raise_error(NotImplementedError)
+    context 'address and amount provided' do
+      let(:address) { '1LQvcJ58qmT7SsSeFmNpwkEiuCUsnrbUk7' }
+      let(:amount) { 1.5 }
+
+      it 'makes request' do
+        expect(subject).to receive(:request).with(method: 'sendtoaddress', params: [address, amount])
+        subject.send_to_address(address, amount)
+      end
     end
   end
 

@@ -274,12 +274,16 @@ module Coinable
   end
 
   # listtransactions
-  def list_transactions(account = nil, count = 10, from = 0)
+  def list_transactions(account = nil, count = nil, from = nil)
     payload = {
       method: 'listtransactions'
     }
 
-    payload[:params] = [account, count, from] unless account.nil?
+    unless account.nil?
+      payload[:params] = [account]
+      payload[:params] << count unless count.nil?
+      payload[:params] << from unless from.nil?
+    end
 
     request(payload)
   end
@@ -320,8 +324,16 @@ module Coinable
   end
 
   # sendtoaddress
-  def send_to_address
-    raise NotImplementedError
+  def send_to_address(address, amount, comment = nil, comment_to = nil)
+    payload = {
+      method: 'sendtoaddress',
+      params: [address, amount]
+    }
+
+    payload[:params] << comment unless comment.nil?
+    payload[:params] << comment_to unless comment_to.nil?
+
+    request(payload)
   end
 
   # setaccount
