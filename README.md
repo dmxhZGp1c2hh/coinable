@@ -1,5 +1,7 @@
 # Coinable
 
+[![Build Status](https://travis-ci.org/dmxhZGp1c2hh/coinable.svg?branch=master)](https://travis-ci.org/dmxhZGp1c2hh/coinable)
+
 Communicate with Bitcoin, Litecoin, Emercoin and other Altcoin JSON RPC the Ruby way.
 
 Coinable implements original Bitcoin API methods (not all of them yet). So if your altcoin based on them you are free to use Coinable.
