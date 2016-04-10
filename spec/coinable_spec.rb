@@ -263,7 +263,7 @@ describe Coinable do
   end
 
   describe '.transaction' do
-    let(:txid) { 'eb718a2ce7fcf1c2158663577ad3f8ae9728d8e42eb51e6bcdc8bf02de57aeee' }
+    let(:txid) { Faker::Lorem.characters(64) }
 
     it 'makes request' do
       expect(subject).to receive(:request).with(method: 'gettransaction', params: [txid])
@@ -414,8 +414,8 @@ describe Coinable do
 
   describe '.send_to_address' do
     context 'address and amount provided' do
-      let(:address) { '1LQvcJ58qmT7SsSeFmNpwkEiuCUsnrbUk7' }
-      let(:amount) { 1.5 }
+      let(:address) { Faker::Bitcoin.address }
+      let(:amount) { Faker::Number.decimal(1, 8) }
 
       it 'makes request' do
         expect(subject).to receive(:request).with(method: 'sendtoaddress', params: [address, amount])
@@ -467,7 +467,7 @@ describe Coinable do
   end
 
   describe '.validate_address' do
-    let(:address) { '1LQvcJ58qmT7SsSeFmNpwkEiuCUsnrbUk7' }
+    let(:address) { Faker::Bitcoin.address }
 
     it 'makes request' do
       expect(subject).to receive(:request).with(method: 'validateaddress', params: [address])
@@ -500,7 +500,7 @@ describe Coinable do
   end
 
   describe '.valid_address?' do
-    let(:address) { '1LQvcJ58qmT7SsSeFmNpwkEiuCUsnrbUk7' }
+    let(:address) { Faker::Bitcoin.address }
 
     it 'makes request through validate_address' do
       expect(subject).to receive(:request).with(method: 'validateaddress', params: [address]).and_return('isvalid' => true)
