@@ -401,6 +401,10 @@ module Coinable
     raise NotImplementedError
   end
 
+  def valid_address?(address)
+    validate_address(address)['isvalid']
+  end
+
   private
 
   def request(payload)

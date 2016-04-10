@@ -498,4 +498,13 @@ describe Coinable do
       expect { subject.wallet_passphrase_change }.to raise_error(NotImplementedError)
     end
   end
+
+  describe '.valid_address?' do
+    let(:address) { '1LQvcJ58qmT7SsSeFmNpwkEiuCUsnrbUk7' }
+
+    it 'makes request through validate_address' do
+      expect(subject).to receive(:request).with(method: 'validateaddress', params: [address]).and_return('isvalid' => true)
+      expect(subject.valid_address?(address)).to be true
+    end
+  end
 end
