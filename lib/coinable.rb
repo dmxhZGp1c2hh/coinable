@@ -148,7 +148,11 @@ module Coinable
 
   # getinfo
   def info
-    raise NotImplementedError
+    payload = {
+      method: 'getinfo'
+    }
+
+    request(payload)
   end
 
   # getmemorypool

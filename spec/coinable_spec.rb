@@ -193,8 +193,9 @@ describe Coinable do
   end
 
   describe '.info' do
-    it 'raises error' do
-      expect { subject.info }.to raise_error(NotImplementedError)
+    it 'makes request' do
+      expect(subject).to receive(:request).with(method: 'getinfo')
+      subject.info
     end
   end
 
